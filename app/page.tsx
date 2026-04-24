@@ -3,25 +3,30 @@
 import Image from 'next/image';
 import { db } from '../lib/firebase';
 import { collection, addDoc } from 'firebase/firestore';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../components/ui/dialog';
 
 export default function Home() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     const formData = new FormData(e.currentTarget);
     const email = formData.get('email') as string;
     try {
-      await addDoc(collection(db, 'Email Signups'), {
+      await addDoc(collection(db, 'email_signups'), {
         email,
         timestamp: new Date()
       });
       setIsDialogOpen(true);
-      e.currentTarget.reset();
+      setIsLoading(false);
+      formRef.current?.reset();
     } catch (error) {
       console.error('Error adding document: ', error);
+      setIsLoading(false);
       alert('Something went wrong. Please try again.');
     }
   };
@@ -32,7 +37,7 @@ export default function Home() {
       <div className="max-w-2xl w-full text-center">
         {/* Logo */}
         <div className="mb-12">
-          <Image src="/RSDL Logo BG Transparent.png" width={170} height={170} alt="Reelspan Logo" className="mx-auto" />
+          <Image src="/RSDL Logo BG Transparent.png" width={170} height={170} alt="Reelspan Logo" className="mx-auto" style={{ width: 'auto', height: 'auto' }} />
         </div>
         {/* Main Heading */}
         <h1 className="text-5xl md:text-7xl font-light mb-6 tracking-tight text-black">
@@ -53,7 +58,7 @@ export default function Home() {
           </p>
 
           {/* Email Form */}
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3 mb-8">
+          <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3 mb-8">
             <input
               type="email"
               name="email"
@@ -75,7 +80,7 @@ export default function Home() {
         <div className="mt-20 pt-8 border-t border-gray-200">
           <nav className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 text-xs text-gray-500">
             <a
-              href="mailto:hello@reelspan.com"
+              href="mailto:info@reelspandigital.ltd"
               className="transition-colors duration-300 hover:text-black"
             >
               Contact

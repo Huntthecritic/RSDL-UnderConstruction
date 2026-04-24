@@ -2,14 +2,14 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC5j5A-IldlkyYM6AGYUmytOd2wycrxDZI",
-  authDomain: "reelspan-f2177.firebaseapp.com",
-  databaseURL: "https://reelspan-f2177-default-rtdb.firebaseio.com",
-  projectId: "reelspan-f2177",
-  storageBucket: "reelspan-f2177.firebasestorage.app",
-  messagingSenderId: "394319521591",
-  appId: "1:394319521591:web:0d0c9f9c22f0ce82291cb2",
-  measurementId: "G-E4TN94VH7P"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);

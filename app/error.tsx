@@ -62,7 +62,7 @@ export default function Error({
           </p>
           <nav className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 text-xs text-gray-500">
             <a
-              href="mailto:hello@reelspan.com"
+              href="mailto:info@reelspandigital.ltd"
               className="transition-colors duration-300 hover:text-black"
             >
               Contact Us
